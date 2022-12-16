@@ -1,0 +1,40 @@
+html body {
+    background-color: #fdcae1;
+}
+
+.textId {
+    display: inline-flexbox;
+    text-align: right;
+    padding: 0px;
+    margin: 0px;
+}
+
+#spinner {
+    display: none;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+}
+
+.imgTam {
+    width: auto;
+    height: 200px;
+}
+
+.cardTam {
+    width: 200px;
+    height: 260px;
+
+}
+
+.card {
+    background-image: url("../img/blob_12-5-0.svg");
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: 440px;
+}
+
+.letraPokemon {
+    color: rgb(0, 0, 0);
+    border-top: solid 2px black;
+}

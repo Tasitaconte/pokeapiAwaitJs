@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./css/bootstrap.css">
+    <link rel="stylesheet" href="./css/style.css">
+    <title>Document</title>
+
+</head>
+
+<body>
+
+    <div class="container mx-auto">
+        <h1 class="text-uppercase text-center mt-2">pokeapi-kanto</h1>
+        
+       
+        <div class="mx-auto container mt-2">
+            <nav class="pagination" aria-label="...">
+                <div class="mx-auto">
+                    <ul class="pagination">
+                        <li class="page-item pe-2" id="previous">
+                            <a class="page-link" href="#" tabindex="-1">Anterior</a>
+                        </li>
+                        <li class="page-item pe-2" id="next">
+                            <a class="page-link" href="#">Siguiente</a>
+                        </li>
+                    </ul>
+                </div>
+            </nav>
+        </div> 
+      
+        <div class="text-uppercase text-center">
+            <div id="spinner" class="spinner-border text-light" role="status">
+                <span class="visually-hidden">Loading...</span>
+            </div>
+            
+            <div class="row pokemon-container mx-auto "></div>
+        </div>
+    </div>
+
+
+    
+
+    <script src="./js/app.js"></script>
+
+    <script>
+        const spinner = document.querySelector("#spinner");
+        const previous = document.querySelector("#previous");
+        const next = document.querySelector("#next");
+        limit = 10;
+        offset = 0;
+
+
+        previous.addEventListener("click", () => {
+            if (offset != 0) {
+                if (offset == 150) {
+                    limit = 10;
+                }
+                offset -= limit;
+                removeChildNodes(pokemonContainer);
+                pokes(offset);
+            }
+        });
+
+        next.addEventListener("click", () => {
+            if (offset != 150) {
+                offset += limit;
+                if (offset == 150) {
+                    limit = 1;
+                }
+                removeChildNodes(pokemonContainer);
+                pokes(offset);
+            }
+        });
+
+        async function pokes(id) {
+            data = await getPokemons(limit, id);
+            insertData(data);
+        }
+
+        async function insertData(data) {
+            let datos = data;
+
+            for (let i = 0; i < datos.length; i++) {
+                const card = document.createElement("div");
+                const name = document.createElement("h4");
+                const sprite = document.createElement("img");
+                const id = document.createElement("h5");
+
+                name.classList.add("letraPokemon");
+                card.classList.add("card", "mx-auto", "mt-1", "cardTam");
+                sprite.classList.add("card-img-top", "img-fluid", "imgTam");
+                id.classList.add("textId");
+
+                id.textContent = datos[i].id;
+                sprite.src = datos[i].sprites.other.dream_world.front_default;
+                name.textContent = datos[i].name;
+
+                card.appendChild(id);
+                card.appendChild(sprite);
+                card.appendChild(name);
+
+                pokemonContainer.appendChild(card);
+            }
+        }
+
+        function removeChildNodes(parent) {
+            while (parent.firstChild) {
+                parent.removeChild(parent.firstChild);
+            }
+        }
+
+        pokes(offset);
+    </script>
+</body>
+
+</html>

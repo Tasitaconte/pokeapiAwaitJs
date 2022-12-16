@@ -8,7 +8,6 @@ async function getPokemons(limit, offset) {
             return response.json();
         }).then(function (data) {
             datos = data;
-            spinner.style.display = "none";
         }).catch(function (e) {
             console.error(e);
         })
@@ -41,5 +40,6 @@ async function getUrl(datos) {
     for (let y = 0; y < info.length; y++) {
         dataPokes.push(await getPokemon(info[y]));
     }
+    
     return dataPokes;
 }

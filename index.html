@@ -6,17 +6,15 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="./css/bootstrap.css">
+    <link rel="shortcut icon" href="./img/favicon.ico" type="image/x-icon">
     <link rel="stylesheet" href="./css/style.css">
-    <title>Document</title>
+    <title>PokeApi</title>
 
 </head>
 
 <body>
-
-    <div class="container mx-auto">
-        <h1 class="text-uppercase text-center mt-2">pokeapi-kanto</h1>
-        
-       
+    <div class="mb-2 container mx-auto">
+        <h1 class="text-uppercase text-center mt-2">pokeapi-kanto</h1> 
         <div class="mx-auto container mt-2">
             <nav class="pagination" aria-label="...">
                 <div class="mx-auto">
@@ -38,15 +36,22 @@
             </div>
             
             <div class="row pokemon-container mx-auto "></div>
+            
         </div>
     </div>
+    <footer>
+        <div class="container text-center mx-auto mt-2">
+            <h1> Todos los derechos reservados &#169TASITACONTE</h1>
+        </div>
 
+    </footer>
 
     
 
     <script src="./js/app.js"></script>
 
     <script>
+        
         const spinner = document.querySelector("#spinner");
         const previous = document.querySelector("#previous");
         const next = document.querySelector("#next");
@@ -67,6 +72,7 @@
 
         next.addEventListener("click", () => {
             if (offset != 150) {
+                console.log();
                 offset += limit;
                 if (offset == 150) {
                     limit = 1;
@@ -77,21 +83,24 @@
         });
 
         async function pokes(id) {
+            
             data = await getPokemons(limit, id);
+            spinner.style.display = "none";
+
             insertData(data);
         }
 
         async function insertData(data) {
             let datos = data;
-
             for (let i = 0; i < datos.length; i++) {
                 const card = document.createElement("div");
                 const name = document.createElement("h4");
                 const sprite = document.createElement("img");
                 const id = document.createElement("h5");
+                const exp = document.createElement("h5");
 
                 name.classList.add("letraPokemon");
-                card.classList.add("card", "mx-auto", "mt-1", "cardTam");
+                card.classList.add("card","mx-auto","mt-1","cardTam");
                 sprite.classList.add("card-img-top", "img-fluid", "imgTam");
                 id.classList.add("textId");
 
@@ -102,6 +111,7 @@
                 card.appendChild(id);
                 card.appendChild(sprite);
                 card.appendChild(name);
+                card.appendChild(exp)
 
                 pokemonContainer.appendChild(card);
             }
